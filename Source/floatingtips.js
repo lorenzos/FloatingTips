@@ -25,7 +25,7 @@ var FloatingTips = new Class({
 		baloon: true,
 		arrowSize: 6,
 		arrowOffset: 6,
-		distance: 6,
+		distance: 3,
 		motion: 6,
 		motionOnShow: true,
 		motionOnHide: true,
@@ -78,9 +78,15 @@ var FloatingTips = new Class({
 		var o = this.options; 
 		var opos = o.position;
 		
+		if (o.content == 'title') {
+			o.content = 'floatingtitle';
+			if (!elem.get('floatingtitle')) elem.setProperty('floatingtitle', elem.get('title'));
+			elem.set('title', '');
+		}
+		
 		var cnt = (typeof(o.content) == 'string' ? elem.get(o.content) : o.content(elem));
-		var cwr = new Element('div').addClass(o.className);
-		var tip = new Element('div').addClass(o.className + '-wrapper').adopt(cwr);
+		var cwr = new Element('div').addClass(o.className).setStyle('margin', 0);
+		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0 }).adopt(cwr);
 		if (cnt) { if (o.html) cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html')); else cwr.set('text', cnt); }
 		
 		var body = $(document.body);
@@ -88,7 +94,7 @@ var FloatingTips = new Class({
 		
 		if (o.baloon) {
 			
-			var trg = new Element('div').addClass(o.className + '-triangle');
+			var trg = new Element('div').addClass(o.className + '-triangle').setStyles({ 'margin': 0, 'padding': 0 });
 			var trgSt = { 'border-color': cwr.getStyle('background-color'), 'border-width': o.arrowSize, 'border-style': 'solid','width': 0, 'height': 0 };
 			
 			switch (opos) {
