@@ -57,7 +57,7 @@ var FloatingTips = new Class({
 
 	show: function(element) {
 		var old = element.retrieve('floatingtip');
-		if (old) old.destroy();
+		if (old) { if (Browser.ie) old.dispose(); else old.destroy(); }
 		var tip = this._create(element);
 		element.store('floatingtip', tip);
 		this._animate(tip, 'in');
@@ -92,7 +92,7 @@ var FloatingTips = new Class({
 		var body = $(document.body);
 		tip.setStyles({ 'position': 'absolute', 'opacity': 0 }).inject(body);
 		
-		if (o.balloon) {
+		if (o.balloon && !Browser.ie6) {
 			
 			var trg = new Element('div').addClass(o.className + '-triangle').setStyles({ 'margin': 0, 'padding': 0 });
 			var trgSt = { 'border-color': cwr.getStyle('background-color'), 'border-width': o.arrowSize, 'border-style': 'solid','width': 0, 'height': 0 };
@@ -101,15 +101,17 @@ var FloatingTips = new Class({
 				case 'top':	trgSt['border-bottom-width'] = 0; break;
 				case 'right': trgSt['border-left-width'] = 0; trgSt['float'] = 'left'; cwr.setStyle('margin-left', o.arrowSize); break;
 				case 'bottom': trgSt['border-top-width'] = 0; break;
-				case 'left': trgSt['border-right-width'] = 0; trgSt['float'] = 'right'; cwr.setStyle('margin-right', o.arrowSize); break;
+				case 'left': trgSt['border-right-width'] = 0; 
+					if (Browser.ie7) { trgSt['position'] = 'absolute'; trgSt['right'] = 0; } else { trgSt['float'] = 'right'; }
+					cwr.setStyle('margin-right', o.arrowSize); break;
 			}
 			
 			switch (opos) {
 				case 'top': case 'bottom': 
-					trgSt['border-left-color'] = trgSt['border-right-color'] = 'transparent';
+					trgSt['border-left-color'] = trgSt['border-right-color'] = 'trasparent';
 					trgSt['margin-left'] = o.center ? tip.getSize().x / 2 - o.arrowSize : o.arrowOffset; break;
 				case 'left': case 'right': 
-					trgSt['border-top-color'] = trgSt['border-bottom-color'] = 'transparent';
+					trgSt['border-top-color'] = trgSt['border-bottom-color'] = 'trasparent';
 					trgSt['margin-top'] = o.center ?  tip.getSize().y / 2 - o.arrowSize : o.arrowOffset; break;
 			}
 			
