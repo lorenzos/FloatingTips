@@ -83,7 +83,7 @@ Docs
 - **`hideDelay`**: The delay the hide event is fired (default `0`).
 - **`className`**: The class name the tip container will get; necessary for styling (default `"floating-tip"`).
 - **`offset`**: An object like `{x: 0, y: 0}` (default), that specify the distance of the tip from its normal position.
-- **`fx`**: An object for additional `Fx` options (default ` {'duration': 'short'}`).
+- **`fx`**: An object for additional `Fx` options (default `{'duration': 'short'}`).
 
 **Events:**
 
