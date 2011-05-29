@@ -68,30 +68,30 @@ Docs
 
 **Options** (*object*): Initial options for the class. Options are:
 
-- **`position`**: Tip position, can be "top", "right", "bottom" or "left" (default `"top"`).
-- **`center`**: If the tip will be placed centered on the target element (default `TRUE`).
-- **`content`**: (string or function) If this is a string, the content of the tip will be the value of the target element attribute with that name (example `"title"`, default); if this is a function, the content will be the value returned by the function, that can accept an argument that is the target element (see **How to use** or **Demo**).
-- **`html`**: If the tooltip content must be interpreted as HTML code (default `FALSE`); if this is TRUE and `content` option is a function that returns an HTML element, inner HTML of that returned element is used as tip content.
-- **`balloon`**: `TRUE` if the tip is a balloon with a small triangle pointing the target element (default `TRUE`).
-- **`arrowSize`**: Size in pixel of the small triangle in the balloon (default `6`).
-- **`arrowOffset`**: Distance in pixel of the small triangle from the edge of the balloon when `center` option is `FALSE` (default `6`).
-- **`distance`**: Distance in pixel of the tip from the target element (default `3`).
-- **`motion`**: Distance in pixel that the tip will cover during in/out animation (default `6`).
-- **`motionOnShow`**: If the tip will animate when showing (default `TRUE`).
-- **`motionOnHide`**: If the tip will animate when hiding (default `TRUE`).
-- **`showDelay`**: The delay the show event is fired (default `0`).
-- **`hideDelay`**: The delay the hide event is fired (default `0`).
-- **`className`**: The class name the tip container will get; necessary for styling (default `"floating-tip"`).
-- **`offset`**: An object like `{x: 0, y: 0}` (default), that specify the distance of the tip from its normal position.
-- **`fx`**: An object for additional `Fx` options (default `{'duration': 'short'}`).
+- `position`: Tip position, can be "top", "right", "bottom" or "left" (default `"top"`).
+- `center`: If the tip will be placed centered on the target element (default `TRUE`).
+- `content`: (string or function) If this is a string, the content of the tip will be the value of the target element attribute with that name (example `"title"`, default); if this is a function, the content will be the value returned by the function, that can accept an argument that is the target element (see **How to use** or **Demo**).
+- `html`: If the tooltip content must be interpreted as HTML code (default `FALSE`); if this is TRUE and `content` option is a function that returns an HTML element, inner HTML of that returned element is used as tip content.
+- `balloon`: `TRUE` if the tip is a balloon with a small triangle pointing the target element (default `TRUE`).
+- `arrowSize`: Size in pixel of the small triangle in the balloon (default `6`).
+- `arrowOffset`: Distance in pixel of the small triangle from the edge of the balloon when `center` option is `FALSE` (default `6`).
+- `distance`: Distance in pixel of the tip from the target element (default `3`).
+- `motion`: Distance in pixel that the tip will cover during in/out animation (default `6`).
+- `motionOnShow`: If the tip will animate when showing (default `TRUE`).
+- `motionOnHide`: If the tip will animate when hiding (default `TRUE`).
+- `showDelay`: The delay the show event is fired (default `0`).
+- `hideDelay`: The delay the hide event is fired (default `0`).
+- `className`: The class name the tip container will get; necessary for styling (default `"floating-tip"`).
+- `offset`: An object like `{x: 0, y: 0}` (default), that specify the distance of the tip from its normal position.
+- `fx`: An object for additional `Fx` options (default `{'duration': 'short'}`).
 
 **Events:**
 
-- **`show(tip, element)`**: Fires when the tip appears. `tip` is the tip element, `target` is the target element.
-- **`hide(tip, element)`**: Fires when the tip disappears. `tip` is the tip element, `target` is the target element.
+- `show(tip, element)`: Fires when the tip appears. `tip` is the tip element, `target` is the target element.
+- `hide(tip, element)`: Fires when the tip disappears. `tip` is the tip element, `target` is the target element.
 
 **Methods:**
 
-- **`attach(elements)`**: Adds other elements that will trigger floating tips; can an be a string selector or an element collection.
-- **`show(element)`**: Manually show the tip on target `element`.
-- **`hide(element)`**: Manually hide the tip for `element`.
+- `attach(elements)`: Adds other elements that will trigger floating tips; can an be a string selector or an element collection.
+- `show(element)`: Manually show the tip on target `element`.
+- `hide(element)`: Manually hide the tip for `element`.
