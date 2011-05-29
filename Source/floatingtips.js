@@ -108,10 +108,10 @@ var FloatingTips = new Class({
 			
 			switch (opos) {
 				case 'top': case 'bottom': 
-					trgSt['border-left-color'] = trgSt['border-right-color'] = 'trasparent';
+					trgSt['border-left-color'] = trgSt['border-right-color'] = 'transparent';
 					trgSt['margin-left'] = o.center ? tip.getSize().x / 2 - o.arrowSize : o.arrowOffset; break;
 				case 'left': case 'right': 
-					trgSt['border-top-color'] = trgSt['border-bottom-color'] = 'trasparent';
+					trgSt['border-top-color'] = trgSt['border-bottom-color'] = 'transparent';
 					trgSt['margin-top'] = o.center ?  tip.getSize().y / 2 - o.arrowSize : o.arrowOffset; break;
 			}
 			
