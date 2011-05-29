@@ -20,9 +20,11 @@ var FloatingTips = new Class({
 	Implements: [Options, Events],
 
 	options: {
+		position: 'top',
+		center: true,
 		content: 'title',
 		html: false,
-		baloon: true,
+		balloon: true,
 		arrowSize: 6,
 		arrowOffset: 6,
 		distance: 3,
@@ -32,8 +34,6 @@ var FloatingTips = new Class({
 		showDelay: 0,
 		hideDelay: 0,
 		className: 'floating-tip',
-		position: 'top',
-		center: true,
 		offset: {x: 0, y: 0},
 		fx: { 'duration': 'short' }
 	},
@@ -92,7 +92,7 @@ var FloatingTips = new Class({
 		var body = $(document.body);
 		tip.setStyles({ 'position': 'absolute', 'opacity': 0 }).inject(body);
 		
-		if (o.baloon) {
+		if (o.balloon) {
 			
 			var trg = new Element('div').addClass(o.className + '-triangle').setStyles({ 'margin': 0, 'padding': 0 });
 			var trgSt = { 'border-color': cwr.getStyle('background-color'), 'border-width': o.arrowSize, 'border-style': 'solid','width': 0, 'height': 0 };
@@ -160,7 +160,7 @@ var FloatingTips = new Class({
 			
 			tip.morph(m); 
 			
-		}).delay(this.options.showDelay, this));
+		}).delay((d == 'in') ? this.options.showDelay : this.options.hideDelay, this));
 		
 		return this;
 		
