@@ -74,16 +74,17 @@ var FloatingTips = new Class({
 	},
 	
 	_create: function(elem) {
+		
 		var o = this.options;
 		var oc = o.content;
 		var opos = o.position;
-
+		
 		if (oc == 'title') {
 			oc = 'floatingtitle';
 			if (!elem.get('floatingtitle')) elem.setProperty('floatingtitle', elem.get('title'));
 			elem.set('title', '');
 		}
-
+		
 		var cnt = (typeof(oc) == 'string' ? elem.get(oc) : oc(elem));
 		var cwr = new Element('div').addClass(o.className).setStyle('margin', 0);
 		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0 }).adopt(cwr);
