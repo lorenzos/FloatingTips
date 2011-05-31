@@ -57,7 +57,7 @@ var FloatingTips = new Class({
 
 	show: function(element) {
 		var old = element.retrieve('floatingtip');
-		if (old) { if (Browser.ie) old.dispose(); else old.destroy(); }
+		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return; }
 		var tip = this._create(element);
 		element.store('floatingtip', tip);
 		this._animate(tip, 'in');
@@ -67,7 +67,7 @@ var FloatingTips = new Class({
 	
 	hide: function(element) {
 		var tip = element.retrieve('floatingtip');
-		if (!tip) return
+		if (!tip) return;
 		this._animate(tip, 'out');
 		this.fireEvent('hide', [tip, element]);
 		return this;
@@ -145,14 +145,15 @@ var FloatingTips = new Class({
 	
 	_animate: function(tip, d) {
 		
-		clearInterval(tip.retrieve('timeout'));
-		tip.store('timeout', (function() { 
+		clearTimeout(tip.retrieve('timeout'));
+		tip.store('timeout', (function(t) { 
 			
 			var o = this.options, din = (d == 'in');
 			var m = { 'opacity': din ? 1 : 0 };
 			
 			if ((o.motionOnShow && din) || (o.motionOnHide && !din)) {
-				var pos = tip.retrieve('position');
+				var pos = t.retrieve('position');
+				if (!pos) return;
 				switch (o.position) {
 					case 'top':		m['top']  = din ? [pos.y - o.motion, pos.y] : pos.y - o.motion; break;
 					case 'right': 	m['left'] = din ? [pos.x + o.motion, pos.x] : pos.x + o.motion; break;
@@ -161,13 +162,13 @@ var FloatingTips = new Class({
 				}
 			}
 			
-			tip.morph(m); 
+			t.morph(m);
+			if (!din) t.get('morph').chain(function() { this.dispose(); }.bind(t)); 
 			
-		}).delay((d == 'in') ? this.options.showDelay : this.options.hideDelay, this));
+		}).delay((d == 'in') ? this.options.showDelay : this.options.hideDelay, this, tip));
 		
 		return this;
 		
 	}
 
 });
-
