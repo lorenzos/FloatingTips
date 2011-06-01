@@ -17,6 +17,9 @@
 			new FloatingTips('#simple a.left'  , { position: 'left'   });
 			new FloatingTips('#simple a.right' , { position: 'right'  });
 			
+			// This creates a tip that appear inside the target element
+			new FloatingTips('#inside a', { position: 'inside', balloon: false, motion: 0 });
+			
 			// Let's create a customized tip
 			new FloatingTips('#customized a', {
 			
@@ -100,6 +103,15 @@
 			<a href="#" title="Another tooltip." class="bottom">Bottom</a> |
 			<a href="#" title="Again..." class="left">Left</a> |
 			<a href="#" title="Ok, you got it." class="right">Right</a>
+		</p>
+		
+	</div>
+	
+	<div id="inside">
+		
+		<p>
+			You can place it also inside the target element:
+			<a href="#" title="Et voil&agrave;!">Try me</a>
 		</p>
 		
 	</div>

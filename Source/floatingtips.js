@@ -40,16 +40,17 @@ var FloatingTips = new Class({
 
 	initialize: function(elements, options) {
 		this.setOptions(options);
+		if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
 		if (elements) this.attach(elements);
 		return this;
 	},
 
 	attach: function(elements) {
-		var self = this;
+		var s = this;
 		$$(elements).each(function(e) {
 			e.addEvents({
-				'mouseenter': function() { self.show(this); },
-				'mouseleave': function() { self.hide(this); }
+				'mouseenter': function() { s.show(this); },
+				'mouseleave': function() { s.hide(this); }
 			});
 		});
 		return this;
@@ -87,10 +88,10 @@ var FloatingTips = new Class({
 		
 		var cnt = (typeof(oc) == 'string' ? elem.get(oc) : oc(elem));
 		var cwr = new Element('div').addClass(o.className).setStyle('margin', 0);
-		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0 }).adopt(cwr);
+		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') }).adopt(cwr);
 		if (cnt) { if (o.html) cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html')); else cwr.set('text', cnt); }
 		
-		var body = $(document.body);
+		var body = document.id(document.body);
 		tip.setStyles({ 'position': 'absolute', 'opacity': 0 }).inject(body);
 		
 		if (o.balloon && !Browser.ie6) {
@@ -99,7 +100,8 @@ var FloatingTips = new Class({
 			var trgSt = { 'border-color': cwr.getStyle('background-color'), 'border-width': o.arrowSize, 'border-style': 'solid','width': 0, 'height': 0 };
 			
 			switch (opos) {
-				case 'top':	trgSt['border-bottom-width'] = 0; break;
+				case 'inside': 
+				case 'top': trgSt['border-bottom-width'] = 0; break;
 				case 'right': trgSt['border-left-width'] = 0; trgSt['float'] = 'left'; cwr.setStyle('margin-left', o.arrowSize); break;
 				case 'bottom': trgSt['border-top-width'] = 0; break;
 				case 'left': trgSt['border-right-width'] = 0; 
@@ -108,7 +110,7 @@ var FloatingTips = new Class({
 			}
 			
 			switch (opos) {
-				case 'top': case 'bottom': 
+				case 'inside': case 'top': case 'bottom': 
 					trgSt['border-left-color'] = trgSt['border-right-color'] = 'transparent';
 					trgSt['margin-left'] = o.center ? tip.getSize().x / 2 - o.arrowSize : o.arrowOffset; break;
 				case 'left': case 'right': 
@@ -116,23 +118,33 @@ var FloatingTips = new Class({
 					trgSt['margin-top'] = o.center ?  tip.getSize().y / 2 - o.arrowSize : o.arrowOffset; break;
 			}
 			
-			trg.setStyles(trgSt).inject(tip, opos == 'top' ? 'bottom' : 'top');
+			trg.setStyles(trgSt).inject(tip, (opos == 'top' || opos == 'inside') ? 'bottom' : 'top');
 			
 		}
 		
-		var tipSz = tip.getSize(), trg = elem.getCoordinates(body);
-		var pos = { x: trg.left + o.offset.x, y: trg.top + o.offset.y };
-		switch (opos) {
-			case 'top':		pos.y -= tipSz.y + o.distance; break;
-			case 'right': 	pos.x += trg.width + o.distance; break;
-			case 'bottom': 	pos.y += trg.height + o.distance; break;
-			case 'left': 	pos.x -= tipSz.x + o.distance; break;
+		var tipSz = tip.getSize(), trgC = elem.getCoordinates(body);
+		var pos = { x: trgC.left + o.offset.x, y: trgC.top + o.offset.y };
+		
+		if (opos == 'inside') {
+			tip.setStyles({ 'width': tip.getStyle('width'), 'height': tip.getStyle('height') });
+			elem.setStyle('position', 'relative').adopt(tip);
+			pos = { x: o.offset.x, y: o.offset.y };
+		} else {
+			switch (opos) {
+				case 'top':     pos.y -= tipSz.y + o.distance; break;
+				case 'right': 	pos.x += trgC.width + o.distance; break;
+				case 'bottom': 	pos.y += trgC.height + o.distance; break;
+				case 'left': 	pos.x -= tipSz.x + o.distance; break;
+			}
 		}
-
+		
 		if (o.center) {
 			switch (opos) {
-				case 'top': case 'bottom': pos.x += (trg.width / 2 - tipSz.x / 2); break;
-				case 'left': case 'right': pos.y += (trg.height / 2 - tipSz.y / 2); break;
+				case 'top': case 'bottom': pos.x += (trgC.width / 2 - tipSz.x / 2); break;
+				case 'left': case 'right': pos.y += (trgC.height / 2 - tipSz.y / 2); break;
+				case 'inside':
+					pos.x += (trgC.width / 2 - tipSz.x / 2);
+					pos.y += (trgC.height / 2 - tipSz.y / 2); break;
 			}
 		}
 		
@@ -155,6 +167,7 @@ var FloatingTips = new Class({
 				var pos = t.retrieve('position');
 				if (!pos) return;
 				switch (o.position) {
+					case 'inside': 
 					case 'top':		m['top']  = din ? [pos.y - o.motion, pos.y] : pos.y - o.motion; break;
 					case 'right': 	m['left'] = din ? [pos.x + o.motion, pos.x] : pos.x + o.motion; break;
 					case 'bottom': 	m['top']  = din ? [pos.y + o.motion, pos.y] : pos.y + o.motion; break;
