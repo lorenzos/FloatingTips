@@ -31,6 +31,8 @@ var FloatingTips = new Class({
 		motion: 6,
 		motionOnShow: true,
 		motionOnHide: true,
+		showOn: 'mouseenter',
+		hideOn: 'mouseleave',
 		showDelay: 0,
 		hideDelay: 0,
 		className: 'floating-tip',
@@ -48,18 +50,19 @@ var FloatingTips = new Class({
 	attach: function(elements) {
 		var s = this;
 		$$(elements).each(function(e) {
-			e.addEvents({
-				'mouseenter': function() { s.show(this); },
-				'mouseleave': function() { s.hide(this); }
-			});
+			evs = { };
+			evs[s.options.showOn] = function() { s.show(this); };
+			evs[s.options.hideOn] = function() { s.hide(this); };
+			e.addEvents(evs);
 		});
 		return this;
 	},
 
 	show: function(element) {
 		var old = element.retrieve('floatingtip');
-		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return; }
+		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return this; }
 		var tip = this._create(element);
+		if (tip == null) return this;
 		element.store('floatingtip', tip);
 		this._animate(tip, 'in');
 		this.fireEvent('show', [tip, element]);
@@ -68,7 +71,7 @@ var FloatingTips = new Class({
 	
 	hide: function(element) {
 		var tip = element.retrieve('floatingtip');
-		if (!tip) return;
+		if (!tip) return this;
 		this._animate(tip, 'out');
 		this.fireEvent('hide', [tip, element]);
 		return this;
@@ -89,7 +92,13 @@ var FloatingTips = new Class({
 		var cnt = (typeof(oc) == 'string' ? elem.get(oc) : oc(elem));
 		var cwr = new Element('div').addClass(o.className).setStyle('margin', 0);
 		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') }).adopt(cwr);
-		if (cnt) { if (o.html) cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html')); else cwr.set('text', cnt); }
+		
+		if (cnt) { 
+			if (o.html) cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html')); 
+			else cwr.set('text', cnt); 
+		} else { 
+			return null;
+		}
 		
 		var body = document.id(document.body);
 		tip.setStyles({ 'position': 'absolute', 'opacity': 0 }).inject(body);
