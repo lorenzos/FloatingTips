@@ -44,9 +44,9 @@ var FloatingTips = new Class({
 		this.setOptions(options);
 		if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
 		if (elements) {
-		    this.elements = elements;
-		    this.attach();
-	    }
+			this.elements = elements;
+			this.attach();
+		}
 		return this;
 	},
 
@@ -55,7 +55,7 @@ var FloatingTips = new Class({
 		this.boundShow = function(e) { this.show(e); }.bind(this);
 		this.boundHide = function(e) { this.hide(e); }.bind(this);
 		$$(elements).each(function(e) {
-		    if (e.retrieve('hasEvents') !== null) { return; }
+			if (e.retrieve('hasEvents') !== null) { return; }
 			evs = { };
 			evs[s.options.showOn] = s.boundShow;
 			evs[s.options.hideOn] = s.boundHide;
@@ -66,18 +66,18 @@ var FloatingTips = new Class({
 	},
 
 	detach: function() {
-	    var s = this;
-	    var evs = { };
-	    evs[this.options.showOn] = this.boundShow;
-	    evs[this.options.hideOn] = this.boundHide;
-	    $$(this.elements).each(function(e) {
-	        e.removeEvents(evs);
-	        e.eliminate('hasEvents');
-	    });
+		var s = this;
+		var evs = { };
+		evs[this.options.showOn] = this.boundShow;
+		evs[this.options.hideOn] = this.boundHide;
+		$$(this.elements).each(function(e) {
+			e.removeEvents(evs);
+			e.eliminate('hasEvents');
+		});
 	},
 
 	show: function(e) {
-	    var element = $(e.target);
+		var element = $(e.target);
 		var old = element.retrieve('floatingtip');
 		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return this; }
 		var tip = this._create(element);
@@ -89,7 +89,7 @@ var FloatingTips = new Class({
 	},
 
 	hide: function(e) {
-	    var element = $(e.target);
+		var element = $(e.target);
 		var tip = element.retrieve('floatingtip');
 		if (!tip) return this;
 		this._animate(tip, 'out');
@@ -160,10 +160,10 @@ var FloatingTips = new Class({
 			pos = { x: o.offset.x, y: o.offset.y };
 		} else {
 			switch (opos) {
-				case 'top':     pos.y -= tipSz.y + o.distance; break;
-				case 'right': 	pos.x += trgC.width + o.distance; break;
-				case 'bottom': 	pos.y += trgC.height + o.distance; break;
-				case 'left': 	pos.x -= tipSz.x + o.distance; break;
+				case 'top':		pos.y -= tipSz.y + o.distance; break;
+				case 'right':	pos.x += trgC.width + o.distance; break;
+				case 'bottom':	pos.y += trgC.height + o.distance; break;
+				case 'left':	pos.x -= tipSz.x + o.distance; break;
 			}
 		}
 
@@ -198,9 +198,9 @@ var FloatingTips = new Class({
 				switch (o.position) {
 					case 'inside':
 					case 'top':		m['top']  = din ? [pos.y - o.motion, pos.y] : pos.y - o.motion; break;
-					case 'right': 	m['left'] = din ? [pos.x + o.motion, pos.x] : pos.x + o.motion; break;
-					case 'bottom': 	m['top']  = din ? [pos.y + o.motion, pos.y] : pos.y + o.motion; break;
-					case 'left': 	m['left'] = din ? [pos.x - o.motion, pos.x] : pos.x - o.motion; break;
+					case 'right':	m['left'] = din ? [pos.x + o.motion, pos.x] : pos.x + o.motion; break;
+					case 'bottom':	m['top']  = din ? [pos.y + o.motion, pos.y] : pos.y + o.motion; break;
+					case 'left':	m['left'] = din ? [pos.x - o.motion, pos.x] : pos.x - o.motion; break;
 				}
 			}
 
