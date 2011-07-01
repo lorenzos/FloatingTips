@@ -43,24 +43,41 @@ var FloatingTips = new Class({
 	initialize: function(elements, options) {
 		this.setOptions(options);
 		if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
-		if (elements) this.attach(elements);
+		if (elements) {
+		    this.elements = elements;
+		    this.attach();
+	    }
 		return this;
 	},
 
-	attach: function(elements) {
+	attach: function() {
 		var s = this;
+		this.boundShow = function(e) { this.show(e); }.bind(this);
+		this.boundHide = function(e) { this.hide(e); }.bind(this);
 		$$(elements).each(function(e) {
 		    if (e.retrieve('hasEvents') !== null) { return; }
 			evs = { };
-			evs[s.options.showOn] = function() { s.show(this); };
-			evs[s.options.hideOn] = function() { s.hide(this); };
+			evs[s.options.showOn] = s.boundShow;
+			evs[s.options.hideOn] = s.boundHide;
 			e.addEvents(evs);
 			e.store('hasEvents', true);
 		});
 		return this;
 	},
 
-	show: function(element) {
+	detach: function() {
+	    var s = this;
+	    var evs = { };
+	    evs[this.options.showOn] = this.boundShow;
+	    evs[this.options.hideOn] = this.boundHide;
+	    $$(this.elements).each(function(e) {
+	        e.removeEvents(evs);
+	        e.eliminate('hasEvents');
+	    });
+	},
+
+	show: function(e) {
+	    var element = $(e.target);
 		var old = element.retrieve('floatingtip');
 		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return this; }
 		var tip = this._create(element);
@@ -71,7 +88,8 @@ var FloatingTips = new Class({
 		return this;
 	},
 
-	hide: function(element) {
+	hide: function(e) {
+	    var element = $(e.target);
 		var tip = element.retrieve('floatingtip');
 		if (!tip) return this;
 		this._animate(tip, 'out');
