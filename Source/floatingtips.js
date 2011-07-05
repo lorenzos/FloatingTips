@@ -42,18 +42,24 @@ var FloatingTips = new Class({
 
 	initialize: function(elements, options) {
 		this.setOptions(options);
+		this.elements = [];
+
+		this.boundShow = function(e) { this.show(e); }.bind(this);
+		this.boundHide = function(e) { this.hide(e); }.bind(this);
+
 		if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
 		if (elements) {
-			this.elements = elements;
+			this.elements.include(elements);
 			this.attach();
 		}
 		return this;
 	},
 
-	attach: function() {
+	attach: function(selector) {
+		var selector = selector || null;
 		var s = this;
-		this.boundShow = function(e) { this.show(e); }.bind(this);
-		this.boundHide = function(e) { this.hide(e); }.bind(this);
+		var elements = (selector === null) ? this.elements.join(',') : selector;
+
 		$$(elements).each(function(e) {
 			if (e.retrieve('hasEvents') !== null) { return; }
 			evs = { };
@@ -62,22 +68,29 @@ var FloatingTips = new Class({
 			e.addEvents(evs);
 			e.store('hasEvents', true);
 		});
+
+		if (selector !== null) {
+			this.elements.include(selector);
+		}
 		return this;
 	},
 
-	detach: function() {
+	detach: function(selector) {
 		var s = this;
+		var selector = selector || null;
 		var evs = { };
+		var elements = (selector === null) ? this.elements.join(',') : selector;
+
 		evs[this.options.showOn] = this.boundShow;
 		evs[this.options.hideOn] = this.boundHide;
-		$$(this.elements).each(function(e) {
+		$$(elements).each(function(e) {
 			e.removeEvents(evs);
 			e.eliminate('hasEvents');
 		});
 	},
 
 	show: function(e) {
-		var element = $(e.target);
+		var element = ('target' in e) ? $(e.target) : e;
 		var old = element.retrieve('floatingtip');
 		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return this; }
 		var tip = this._create(element);
@@ -89,7 +102,7 @@ var FloatingTips = new Class({
 	},
 
 	hide: function(e) {
-		var element = $(e.target);
+		var element = ('target' in e) ? $(e.target) : e;
 		var tip = element.retrieve('floatingtip');
 		if (!tip) return this;
 		this._animate(tip, 'out');
