@@ -78,8 +78,8 @@ Docs
 - **`motion`**: Distance in pixel that the tip will cover during in/out animation (default `6`).
 - **`motionOnShow`**: If the tip will animate when showing (default `TRUE`).
 - **`motionOnHide`**: If the tip will animate when hiding (default `TRUE`).
-- **`showOn`**: When to show the tip, can be any event of the target element (default `mouseenter`).
-- **`hideOn`**: When to hide the tip, can be any event of the target element (default `mouseleave`).
+- **`showOn`**: When to show the tip, can be any event of the target element (default `"mouseenter"`).
+- **`hideOn`**: When to hide the tip, can be any event of the target element (default `"mouseleave"`).
 - **`showDelay`**: The delay the show event is fired (default `0`).
 - **`hideDelay`**: The delay the hide event is fired (default `0`).
 - **`className`**: The class name the tip container will get; necessary for styling (default `"floating-tip"`).
