@@ -101,7 +101,7 @@ var FloatingTips = new Class({
 		}
 		
 		var body = document.id(document.body);
-		tip.setStyles({ 'position': 'absolute', 'opacity': 0 }).inject(body);
+		tip.setStyles({ 'position': 'absolute', 'opacity': 0, 'top': 0, 'left': 0 }).inject(body);
 		
 		if (o.balloon && !Browser.ie6) {
 			
