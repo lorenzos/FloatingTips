@@ -85,7 +85,7 @@ var FloatingTips = new Class({
 	},
 
 	show: function(e) {
-		var element = ('target' in e) ? $(e.target) : e;
+		var element = (('target' in e) && (typeof e.target != 'string')) ? document.id(e.target) : e;
 		var old = element.retrieve('floatingtip');
 		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return this; }
 		var tip = this._create(element);
@@ -97,9 +97,19 @@ var FloatingTips = new Class({
 	},
 
 	hide: function(e) {
-		var element = ('target' in e) ? $(e.target) : e;
+		var element = (('target' in e) && (typeof e.target != 'string')) ? document.id(e.target) : e;
 		var tip = element.retrieve('floatingtip');
-		if (!tip) return this;
+		if (!tip) {
+			if (this.options.position == 'inside') {
+				try {
+					element = element.getParent().getParent();
+					tip = element.retrieve('floatingtip');
+				} catch (x) { }
+				if (!tip) return this;
+			} else {
+				return this;
+			}
+		}
 		this._animate(tip, 'out');
 		this.fireEvent('hide', [tip, element]);
 		return this;
