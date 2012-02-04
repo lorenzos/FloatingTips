@@ -112,8 +112,12 @@ var FloatingTips = new Class({
 		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') }).adopt(cwr);
 		
 		if (cnt) { 
-			if (o.html) cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html')); 
-			else cwr.set('text', cnt); 
+			if (o.html) {
+				if (o.html_adopt) cwr.adopt(cnt);
+				else cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html'));
+			} else {
+				cwr.set('text', cnt); 
+			}
 		} else { 
 			return null;
 		}
