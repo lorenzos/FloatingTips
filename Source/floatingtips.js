@@ -69,6 +69,7 @@ var FloatingTips = new Class({
 		evs[this.options.showOn] = this.boundShow;
 		evs[this.options.hideOn] = this.boundHide;
 		$$(elements).each(function(e) {
+			s.hide(e);
 			e.removeEvents(evs);
 			e.eliminate('floatingtip_hasevents');
 		});
