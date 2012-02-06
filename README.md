@@ -103,6 +103,6 @@ Docs
 FloatingTips.Dialog
 -------------------
 
-This is an extra class that extends **FloatingTips** to let you create dialog boxes that appears near target element (for example, on an important link for asking for confirmation). 
+**FloatingTips.Dialog** is an extra class that extends **FloatingTips** to let you create dialog boxes that appears near target element (for example, on an important link for asking for confirmation). 
 
 To learn more on how to use it, see **[HowTo](https://github.com/lorenzos/FloatingTips/wiki/Howto)** and **[Docs](https://github.com/lorenzos/FloatingTips/wiki/Docs)** wiki pages on Github.
