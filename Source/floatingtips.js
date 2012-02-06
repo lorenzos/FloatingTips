@@ -21,6 +21,7 @@ var FloatingTips = new Class({
 
 	options: {
 		position: 'top',
+		fixed: false,
 		center: true,
 		content: 'title',
 		html: false,
@@ -123,7 +124,7 @@ var FloatingTips = new Class({
 		}
 		
 		var body = document.id(document.body);
-		tip.setStyles({ 'position': 'absolute', 'opacity': 0, 'top': 0, 'left': 0 }).inject(body);
+		tip.setStyles({ 'position': (o.fixed ? 'fixed' : 'absolute'), 'opacity': 0, 'top': 0, 'left': 0 }).inject(body);
 		
 		if (o.balloon && !Browser.ie6) {
 			
@@ -154,7 +155,7 @@ var FloatingTips = new Class({
 		}
 		
 		var tipSz = tip.getSize(), trgC = elem.getCoordinates(body);
-		var offsetOption = ('function' === typeOf(o.offset) ? Object.merge({ x: 0, y: 0 }, o.offset(elem)) : o.offset);
+		var offsetOption = ('function' === typeof(o.offset) ? Object.merge({ x: 0, y: 0 }, o.offset(elem)) : o.offset);
 		var pos = { x: trgC.left + offsetOption.x, y: trgC.top + offsetOption.y };
 		
 		if (opos == 'inside') {
