@@ -228,6 +228,15 @@ var FloatingTips = new Class({
 
 });
 
+Elements.implement({
+	
+	floatingTips: function(options) {
+		new FloatingTips(this, options);
+		return this;
+	}
+	
+});
+
 Element.implement({
 	
 	floatingTips: function(options) {
@@ -255,11 +264,10 @@ Element.implement({
 	
 });
 
-Elements.implement({
-	
-	floatingTips: function(options) {
-		new FloatingTips(this, options);
-		return this;
-	}
-	
-});
+Element.Properties.floatingTips = {
+ 
+    get: function(){
+        return this.retrieve('floatingtip_object');
+    }
+ 
+};
