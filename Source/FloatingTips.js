@@ -101,9 +101,9 @@ var FloatingTips = new Class({
 	},
 	
 	toggle: function(element) {
-        if (element.retrieve('floatingtip_visible')) return this.hide(element);
-        else return this.show(element);
-    },
+		if (element.retrieve('floatingtip_visible')) return this.hide(element);
+		else return this.show(element);
+	},
 	
 	_create: function(elem) {
 		
