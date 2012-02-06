@@ -46,6 +46,15 @@
 				
 			});
 			
+			// A tip that appears when entering data in an input field
+			new FloatingTips('#focus input', {
+				content: 'rel',
+				position: 'right',
+				showOn: 'focus',
+				hideOn: 'blur',
+				distance: 6
+			});
+		
 		});
 	</script>
 	
@@ -142,6 +151,11 @@
 		
 	</div>
 	
+	<div id="focus">
+		<p>You can show tooltip on focus instead of cursor events:</p>
+		<p><input type="text" rel="About that field..." value="Edit me"></p>
+	</div>
+
 	<div>
 		
 		<p>
