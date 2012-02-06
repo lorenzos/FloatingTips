@@ -8,7 +8,6 @@ authors:
 - Lorenzo Stanco
 
 requires:
-- FloatingTips/2.2
 - core/1.3: '*'
 
 provides: [FloatingTips.Dialog]
