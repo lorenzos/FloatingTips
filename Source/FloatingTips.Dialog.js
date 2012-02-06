@@ -18,22 +18,22 @@ provides: [FloatingTips.Dialog]
 
 FloatingTips.Dialog = new Class({
 
-    Extends: FloatingTips,
-    
-    options: {
-        showOn: 'click',
-        hideOn: 'never',
-        buttons: { },
+	Extends: FloatingTips,
+	
+	options: {
+		showOn: 'click',
+		hideOn: 'never',
+		buttons: { },
 		buttonsClassName: ''
-    },
-    
-    initialize: function(element, text, options) {
-        
+	},
+	
+	initialize: function(element, text, options) {
+		
 		// Setup options
-        this.setOptions(options);
-        
+		this.setOptions(options);
+		
 		// Store element reference
-        this.element = $(element);
+		this.element = $(element);
 		
 		// Create buttons
 		var s = this;
@@ -43,21 +43,21 @@ FloatingTips.Dialog = new Class({
 			var button = new Element('button', { type: 'button' });
 			if (s.options.buttonsClassName) button.addClass(s.options.buttonsClassName);
 			button.addClass(s.options.className + '-button' + ++buttonsIndex);
-			button.set('text', buttonCaption).addEvent('click', buttonCallback.bind(s));
+			button.set('text', buttonCaption).addEvent('click', buttonCallback.pass([ s.element, button, s ], s));
 			buttonsWrapper.adopt(button);
 		});
 		
 		// Create tip content
 		var contentText = new Element('p', { 'text': text });
-        var content = new Element('div').adopt(contentText, buttonsWrapper);
-        this.options.content = function() { return content; };
-        this.options.html = true;
-        this.options.html_adopt = true;
-        
-        // Call FloatingTips constructor
-        this.parent([this.element]);
-        
-    },
+		var content = new Element('div').adopt(contentText, buttonsWrapper);
+		this.options.content = function() { return content; };
+		this.options.html = true;
+		this.options.html_adopt = true;
+		
+		// Call FloatingTips constructor
+		this.parent([this.element]);
+		
+	},
 	
 	popup: function() {
 		this.show(this.element);
@@ -66,5 +66,5 @@ FloatingTips.Dialog = new Class({
 	dismiss: function() {
 		this.hide(this.element);
 	}
-    
+	
 });

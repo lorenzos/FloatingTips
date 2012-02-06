@@ -65,7 +65,7 @@ Docs
 
 - **`elements`**: Elements that will trigger floating tips; can an be a string selector or an element collection.
 
-**Options** (*object*): Initial options for the class. Options are:
+**Options** (*object*): Options for the class. Options are:
 
 - **`position`**: Tip position, can be "top", "right", "bottom", "left" or "inside" (default `"top"`).
 - **`fixed`**: If the tip should be placed in fixed position (default `FALSE`). This allows you to have tips on fixed elements, that do no scroll on page scrolling.
@@ -98,3 +98,10 @@ Docs
 - **`detach(elements)`**: Remove floating tips triggering from elements; can an be a string selector or an element collection.
 - **`show(element)`**: Manually show the tip on target `element`.
 - **`hide(element)`**: Manually hide the tip for `element`.
+
+FloatingTips.Dialog
+-------------------
+
+This is an extra class that extends **FloatingTips** to let you create dialog boxes that appears near target element (for example, on an important link for asking for confirmation). 
+
+To learn more on how to use it, see **[HowTo](https://github.com/lorenzos/FloatingTips/wiki/Howto)** and **[Docs](https://github.com/lorenzos/FloatingTips/wiki/Docs)** wiki pages on Github.
