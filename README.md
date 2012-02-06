@@ -68,6 +68,7 @@ Docs
 **Options** (*object*): Initial options for the class. Options are:
 
 - **`position`**: Tip position, can be "top", "right", "bottom", "left" or "inside" (default `"top"`).
+- **`fixed`**: If the tip should be placed in fixed position (default `FALSE`). This allows you to have tips on fixed elements, that do no scroll on page scrolling.
 - **`center`**: If the tip will be placed centered on the target element (default `TRUE`).
 - **`content`**: (*string or function*) If this is a string, the content of the tip will be the value of the target element attribute with that name (example `"title"`, default); if this is a function, the content will be the value returned by the function, that can accept an argument that is the target element (see **How to use** or **Demo**).
 - **`html`**: If the tooltip content must be interpreted as HTML code (default `FALSE`); if this is TRUE and `content` option is a function that returns an HTML element, inner HTML of that returned element is used as tip content.
