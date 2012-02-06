@@ -64,8 +64,9 @@ Docs
 	var myTips = new FloatingTips(elements, options);
 
 - **elements**: Elements that will trigger floating tips; can an be a string selector or an element collection.
+- **options**: (*object*) Options for the class. They are all listed below.
 
-**Options** (*object*): Options for the class. Options are:
+**Options**
 
 - **position**: Tip position, can be "top", "right", "bottom", "left" or "inside" (default `"top"`).
 - **fixed**: If the tip should be placed in fixed position (default `FALSE`). This allows you to have tips on fixed elements, that do no scroll on page scrolling.
