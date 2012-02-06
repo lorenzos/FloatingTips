@@ -154,7 +154,7 @@ var FloatingTips = new Class({
 			
 		}
 		
-		var tipSz = tip.getSize(), trgC = elem.getCoordinates(body);
+		var tipSz = tip.getSize(), trgC = elem.getCoordinates();
 		var offsetOption = ('function' === typeof(o.offset) ? Object.merge({ x: 0, y: 0 }, o.offset(elem)) : o.offset);
 		var pos = { x: trgC.left + offsetOption.x, y: trgC.top + offsetOption.y };
 		
