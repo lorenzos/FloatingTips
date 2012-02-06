@@ -55,7 +55,7 @@ CSS tip styling:
 Docs
 ----
 
-**Implements:** `Options, Events`
+**Implements:** Options, Events
 
 **Syntax:**
 	
@@ -66,7 +66,7 @@ Docs
 - **elements**: Elements that will trigger floating tips; can an be a string selector or an element collection.
 - **options**: (*object*) Options for the class. They are all listed below.
 
-**Options**
+**Options:**
 
 - **position**: Tip position, can be "top", "right", "bottom", "left" or "inside" (default `"top"`).
 - **fixed**: If the tip should be placed in fixed position (default `FALSE`). This allows you to have tips on fixed elements, that do no scroll on page scrolling.
@@ -90,8 +90,8 @@ Docs
 
 **Events:**
 
-- **show(tip, element)**: Fires when the tip appears. `tip` is the tip element, `target` is the target element.
-- **hide(tip, element)**: Fires when the tip disappears. `tip` is the tip element, `target` is the target element.
+- **show(tip, element)**: Fires when the tip appears. `tip` is the tip element, `element` is the target element.
+- **hide(tip, element)**: Fires when the tip disappears. `tip` is the tip element, `element` is the target element.
 
 **Methods:**
 
@@ -99,6 +99,25 @@ Docs
 - **detach(elements)**: Remove floating tips triggering from elements; can an be a string selector or an element collection.
 - **show(element)**: Manually show the tip on target `element`.
 - **hide(element)**: Manually hide the tip for `element`.
+- **toggle(element)**: Manually toggle the tip for `element`.
+
+**Element and Elements methods:**
+
+You can use some shortcut methods on **Element** and **Elements** for creating and showing tips.
+
+	#JS
+	
+	$$('a').floatingTips(options); // Create tips
+	$('myLink').floatingTipsShow(); // Show one
+	var myTips = $('myLink').get('floatingTips'); // Get instance
+
+- **Elements.floatingTips(options)**: Creates a new instance of FloatingTips on elements.
+- **Element.floatingTips(options)**: Creates a new instance of FloatingTips on the element.
+- **Element.floatingTipsShow()**: Show the the tip on the element.
+- **Element.floatingTipsHide()**: Hide the the tip on the element.
+- **Element.floatingTipsToggle()**: Toggles the the tip on the element.
+- **Element.get('floatingTips')**: Retrieves the instance of FloatingTips of the element.
+
 
 FloatingTips.Dialog
 -------------------
