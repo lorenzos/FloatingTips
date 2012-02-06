@@ -54,7 +54,19 @@
 				hideOn: 'blur',
 				distance: 6
 			});
-		
+			
+			// Events demo
+			new FloatingTips('#events a').addEvents({
+				'show': function(tip, element) {
+					if (element.get('id') == 'first_event')
+						document.id('second_event').floatingTipsShow();
+				},
+				'hide': function(tip, element) {
+					if (element.get('id') == 'first_event')
+						document.id('second_event').floatingTipsHide();
+				}
+			});
+			
 		});
 	</script>
 	
@@ -155,15 +167,17 @@
 		<p>You can show tooltip on focus instead of cursor events:</p>
 		<p><input type="text" rel="About that field..." value="Edit me"></p>
 	</div>
+	
+	<div id="events">
+		<p>When <a href="#" title="Look right!" id="first_event">this</a> tooltip has been shown, <a href="#" title="Hello!" id="second_event">this</a> tooltip will be shown</p>
+	</div>
 
 	<div>
-		
 		<p>
 			Read Javascript comments on this demo or see
 			<a href="http://wiki.github.com/lorenzos/FloatingTips/docs" target="_blank">docs</a> 
 			for more!
 		</p>
-		
 	</div>
 	
 </body>

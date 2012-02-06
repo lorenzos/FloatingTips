@@ -60,6 +60,7 @@ var FloatingTips = new Class({
 			evs[s.options.hideOn] = s.boundHide;
 			e.addEvents(evs);
 			e.store('floatingtip_hasevents', true);
+			e.store('floatingtip_object', s);
 		});
 		return this;
 	},
@@ -73,6 +74,7 @@ var FloatingTips = new Class({
 			s.hide(e);
 			e.removeEvents(evs);
 			e.eliminate('floatingtip_hasevents');
+			e.eliminate('floatingtip_object');
 		});
 		return this;
 	},
@@ -84,6 +86,7 @@ var FloatingTips = new Class({
 		if (tip == null) return this;
 		element.store('floatingtip', tip);
 		this._animate(tip, 'in');
+		element.store('floatingtip_visible', true);
 		this.fireEvent('show', [tip, element]);
 		return this;
 	},
@@ -92,9 +95,15 @@ var FloatingTips = new Class({
 		var tip = element.retrieve('floatingtip');
 		if (!tip) return this;
 		this._animate(tip, 'out');
+		element.store('floatingtip_visible', false);
 		this.fireEvent('hide', [tip, element]);
 		return this;
 	},
+	
+	toggle: function(element) {
+        if (element.retrieve('floatingtip_visible')) return this.hide(element);
+        else return this.show(element);
+    },
 	
 	_create: function(elem) {
 		
@@ -217,4 +226,40 @@ var FloatingTips = new Class({
 		
 	}
 
+});
+
+Element.implement({
+	
+	floatingTips: function(options) {
+		new FloatingTips($$(this), options);
+		return this;
+	},
+	
+	floatingTipsShow: function() {
+		var tip = this.retrieve('floatingtip_object');
+		if (tip) tip.show(this);
+		return this;
+	},
+	
+	floatingTipsHide: function() {
+		var tip = this.retrieve('floatingtip_object');
+		if (tip) tip.hide(this);
+		return this;
+	},
+	
+	floatingTipsToggle: function() {
+		var tip = this.retrieve('floatingtip_object');
+		if (tip) tip.toggle(this);
+		return this;
+	}
+	
+});
+
+Elements.implement({
+	
+	floatingTips: function(options) {
+		new FloatingTips(this, options);
+		return this;
+	}
+	
 });
