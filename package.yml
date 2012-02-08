@@ -6,5 +6,5 @@ demo: http://jsfiddle.net/SLvUz/3/
 docs: http://wiki.github.com/lorenzos/FloatingTips/docs
 current: 2.4
 sources:
-- "Source/FloatingTips.js"
-- "Source/FloatingTips.Dialog.js"
+  - "Source/FloatingTips.js"
+  - "Source/FloatingTips.Dialog.js"
