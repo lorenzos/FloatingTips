@@ -83,13 +83,13 @@ provides: [FloatingTips.Dialog]
 		
 		floatingTipsDialogDismiss: function() {
 			var dialog = this.retrieve('floatingtip_object');
-			if (dialog) this.dismiss();
+			if (dialog) dialog.dismiss();
 			return this;
 		},
 		
 		floatingTipsDialogToggle: function() {
 			var dialog = this.retrieve('floatingtip_object');
-			if (dialog) this.toggle(this);
+			if (dialog) dialog.toggle(this);
 			return this;
 		}
 		
