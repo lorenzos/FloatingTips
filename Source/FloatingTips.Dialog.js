@@ -38,7 +38,7 @@ provides: [FloatingTips.Dialog]
 			// Create buttons
 			var s = this;
 			var buttonsIndex = 0;
-			var buttonsWrapper = new Element('p');
+			var buttonsWrapper = new Element('p.button-wrapper');
 			Object.each(this.options.buttons, function(buttonCallback, buttonCaption) {
 				var button = new Element('button', { type: 'button' });
 				if (s.options.buttonsClassName) button.addClass(s.options.buttonsClassName);
@@ -47,7 +47,7 @@ provides: [FloatingTips.Dialog]
 				buttonsWrapper.adopt(button);
 			});
 			// Create tip content
-			var contentText = new Element('p', { 'text': text });
+			var contentText = new Element('p', { 'html': text });
 			var content = new Element('div').adopt(contentText, buttonsWrapper);
 			this.options.content = function() { return content; };
 			this.options.html = true;

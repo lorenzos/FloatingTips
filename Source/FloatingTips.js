@@ -48,7 +48,7 @@ provides: [FloatingTips]
 			var s = this;
 			this.boundShow = (function() { s.show(this); });
 			this.boundHide = (function() { s.hide(this); });
-			if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
+			if (!['top', 'right', 'bottom', 'left', 'inside', 'above'].contains(this.options.position)) this.options.position = 'top';
 			if (elements) this.attach(elements);
 			return this;
 		},
@@ -144,6 +144,7 @@ provides: [FloatingTips]
 				
 				switch (opos) {
 					case 'inside': 
+					case 'above': 
 					case 'top'   : trgSt['border-bottom-width'] = 0; break;
 					case 'right' : trgSt['border-left-width'  ] = 0; trgSt['float'] = 'left'; cwr.setStyle('margin-left', o.arrowSize); break;
 					case 'bottom': trgSt['border-top-width'   ] = 0; break;
@@ -153,7 +154,7 @@ provides: [FloatingTips]
 				}
 				
 				switch (opos) {
-					case 'inside': case 'top': case 'bottom': 
+					case 'inside': case 'above': case 'top': case 'bottom': 
 						trgSt['border-left-color'] = trgSt['border-right-color'] = 'transparent';
 						trgSt['margin-left'] = o.center ? tip.getSize().x / 2 - o.arrowSize : o.arrowOffset; break;
 					case 'left': case 'right': 
@@ -161,7 +162,7 @@ provides: [FloatingTips]
 						trgSt['margin-top'] = o.center ?  tip.getSize().y / 2 - o.arrowSize : o.arrowOffset; break;
 				}
 				
-				trg.setStyles(trgSt).inject(tip, (opos == 'top' || opos == 'inside') ? 'bottom' : 'top');
+				trg.setStyles(trgSt).inject(tip, (opos == 'top' || opos == 'inside' || ops == 'above') ? 'bottom' : 'top');
 				
 			}
 			
@@ -187,6 +188,7 @@ provides: [FloatingTips]
 					case 'top' : case 'bottom': pos.x += (trgC.width / 2 - tipSz.x / 2); break;
 					case 'left': case 'right' : pos.y += (trgC.height / 2 - tipSz.y / 2); break;
 					case 'inside':
+					case 'above':
 						pos.x += (trgC.width / 2 - tipSz.x / 2);
 						pos.y += (trgC.height / 2 - tipSz.y / 2); break;
 				}
@@ -212,6 +214,7 @@ provides: [FloatingTips]
 					if (!pos) return;
 					switch (o.position) {
 						case 'inside': 
+						case 'above': 
 						case 'top'   : m['top']  = din ? [pos.y - o.motion, pos.y] : pos.y - o.motion; break;
 						case 'right' : m['left'] = din ? [pos.x + o.motion, pos.x] : pos.x + o.motion; break;
 						case 'bottom': m['top']  = din ? [pos.y + o.motion, pos.y] : pos.y + o.motion; break;
