@@ -15,55 +15,84 @@ provides: [FloatingTips.Dialog]
 ...
 */
 
-FloatingTips.Dialog = new Class({
+(function($) {
 
-	Extends: FloatingTips,
+	$global.FloatingTips.Dialog = new Class({
+
+		Extends: FloatingTips,
+		
+		options: {
+			showOn: 'click',
+			hideOn: 'never',
+			buttons: { },
+			buttonsClassName: ''
+		},
+		
+		initialize: function(element, text, options) {
+			// Setup options
+			this.setOptions(options);
+			
+			// Store element reference
+			this.element = $(element);
+			
+			// Create buttons
+			var s = this;
+			var buttonsIndex = 0;
+			var buttonsWrapper = new Element('p.button-wrapper');
+			Object.each(this.options.buttons, function(buttonCallback, buttonCaption) {
+				var button = new Element('button', { type: 'button' });
+				if (s.options.buttonsClassName) button.addClass(s.options.buttonsClassName);
+				button.addClass(s.options.className + '-button' + ++buttonsIndex);
+				button.set('text', buttonCaption).addEvent('click', buttonCallback.pass([ s.element, button, s ], s));
+				buttonsWrapper.adopt(button);
+			});
+			// Create tip content
+			var contentText = new Element('p', { 'html': text });
+			var content = new Element('div').adopt(contentText, buttonsWrapper);
+			this.options.content = function() { return content; };
+			this.options.html = true;
+			this.options.html_adopt = true;
+			
+			// Call FloatingTips constructor
+			this.parent([this.element]);
+			
+		},
+		
+		popup: function() {
+			this.show(this.element);
+		},
+		
+		dismiss: function() {
+			this.hide(this.element);
+		}
+		
+	});
+
+	Element.implement({
+		
+		floatingTipsDialog: function(text, options) {
+			new FloatingTips.Dialog(this, text, options);
+			return this;
+		},
+		
+		floatingTipsDialogPopup: function() {
+			var dialog = this.retrieve('floatingtip_object');
+			if (dialog) dialog.popup();
+			return this;
+		},
+		
+		floatingTipsDialogDismiss: function() {
+			var dialog = this.retrieve('floatingtip_object');
+			if (dialog) dialog.dismiss();
+			return this;
+		},
+		
+		floatingTipsDialogToggle: function() {
+			var dialog = this.retrieve('floatingtip_object');
+			if (dialog) dialog.toggle(this);
+			return this;
+		}
+		
+	});
 	
-	options: {
-		showOn: 'click',
-		hideOn: 'never',
-		buttons: { },
-		buttonsClassName: ''
-	},
-	
-	initialize: function(element, text, options) {
-		
-		// Setup options
-		this.setOptions(options);
-		
-		// Store element reference
-		this.element = $(element);
-		
-		// Create buttons
-		var s = this;
-		var buttonsIndex = 0;
-		var buttonsWrapper = new Element('p');
-		Object.each(this.options.buttons, function(buttonCallback, buttonCaption) {
-			var button = new Element('button', { type: 'button' });
-			if (s.options.buttonsClassName) button.addClass(s.options.buttonsClassName);
-			button.addClass(s.options.className + '-button' + ++buttonsIndex);
-			button.set('text', buttonCaption).addEvent('click', buttonCallback.pass([ s.element, button, s ], s));
-			buttonsWrapper.adopt(button);
-		});
-		
-		// Create tip content
-		var contentText = new Element('p', { 'text': text });
-		var content = new Element('div').adopt(contentText, buttonsWrapper);
-		this.options.content = function() { return content; };
-		this.options.html = true;
-		this.options.html_adopt = true;
-		
-		// Call FloatingTips constructor
-		this.parent([this.element]);
-		
-	},
-	
-	popup: function() {
-		this.show(this.element);
-	},
-	
-	dismiss: function() {
-		this.hide(this.element);
-	}
-	
-});
+})(document.id);
