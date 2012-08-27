@@ -119,7 +119,11 @@ var FloatingTips = new Class({
 		
 		var cnt = (typeof(oc) == 'string' ? elem.get(oc) : oc(elem));
 		var cwr = new Element('div').addClass(o.className).setStyle('margin', 0);
-		var tip = new Element('div').addClass(o.className + '-wrapper').setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') }).adopt(cwr);
+		var tip = new Element('div')
+			.addClass(o.className + '-wrapper')
+			.addClass('position-' + this.options.position)
+			.setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') })
+			.adopt(cwr);
 		
 		if (cnt) { 
 			if (o.html) {
