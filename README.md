@@ -113,9 +113,9 @@ You can use some shortcut methods on **Element** and **Elements** for creating a
 
 - **Elements.floatingTips(options)**: Creates a new instance of FloatingTips on elements.
 - **Element.floatingTips(options)**: Creates a new instance of FloatingTips on the element.
-- **Element.floatingTipsShow()**: Show the the tip on the element.
-- **Element.floatingTipsHide()**: Hide the the tip on the element.
-- **Element.floatingTipsToggle()**: Toggles the the tip on the element.
+- **Element.floatingTipsShow()**: Show the tip on the element.
+- **Element.floatingTipsHide()**: Hide the tip on the element.
+- **Element.floatingTipsToggle()**: Toggles the tip on the element.
 - **Element.get('floatingTips')**: Retrieves the instance of FloatingTips of the element.
 
 
