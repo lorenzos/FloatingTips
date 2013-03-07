@@ -81,7 +81,7 @@ var FloatingTips = new Class({
 
 	show: function(element) {
 		var old = element.retrieve('floatingtip');
-		if (old) if (old.getStyle('opacity') == 1) { clearTimeout(old.retrieve('timeout')); return this; }
+		if (old) if (old.getStyle('opacity') != 0) { clearTimeout(old.retrieve('timeout')); return this; }
 		var tip = this._create(element);
 		if (tip == null) return this;
 		element.store('floatingtip', tip);
