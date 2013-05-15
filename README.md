@@ -13,33 +13,33 @@ How to use
 JS sample:
 
 	#JS
-	
+
 	// Create a simple tips for all <a> elements
 	new FloatingTips('a'); // Title attribute will be used as tip.
-	
+
 	// A customized tip for all <span class="custom"> elements
 	new FloatingTips('span.custom', {
-	
+
 		// Content can also be a function of the target element!
 		content: function(e) { return 'I am ' + e.getSize().x + ' px wide! :)'; },
-		
+
 		position: 'bottom', // Bottom positioned
 		center: false,      // Place the tip aligned with target
 		arrowSize: 12,      // A bigger arrow!
-		
+
 	});
 
 HTML code:
 
 	#HTML
-	
+
 	<a href="#" title="This is a tooltip">Simple tip</a>
 	<span class="custom">Custom tip</span>
 
 CSS tip styling:
 
 	#CSS
-	
+
 	.floating-tip {
 		background-color: black;
 		padding: 5px 15px;
@@ -58,9 +58,9 @@ Docs
 **Implements:** Options, Events
 
 **Syntax:**
-	
+
 	#JS
-	
+
 	var myTips = new FloatingTips(elements, options);
 
 - **elements**: Elements that will trigger floating tips; can an be a string selector or an element collection.
@@ -82,6 +82,7 @@ Docs
 - **motionOnHide**: If the tip will animate when hiding (default `TRUE`).
 - **showOn**: When to show the tip, can be any event of the target element (default `"mouseenter"`).
 - **hideOn**: When to hide the tip, can be any event of the target element (default `"mouseleave"`).
+- **discrete**: Whether to show only one tip of the same group at the same time (default `FALSE`). The "same group" is considered the elements which have been passed to the `FloatingTips` instance in the constructor or being `attach()`ed later on.
 - **showDelay**: The delay the show event is fired (default `0`).
 - **hideDelay**: The delay the hide event is fired (default `0`).
 - **className**: The class name the tip container will get; necessary for styling (default `"floating-tip"`).
@@ -106,7 +107,7 @@ Docs
 You can use some shortcut methods on **Element** and **Elements** for creating and showing tips.
 
 	#JS
-	
+
 	$$('a').floatingTips(options); // Create tips
 	$('myLink').floatingTipsShow(); // Show one
 	var myTips = $('myLink').get('floatingTips'); // Get instance
@@ -122,6 +123,6 @@ You can use some shortcut methods on **Element** and **Elements** for creating a
 FloatingTips.Dialog
 -------------------
 
-**FloatingTips.Dialog** is an extra class that extends **FloatingTips** to let you create dialog boxes that appears near target element (for example, on an important link for asking for confirmation). 
+**FloatingTips.Dialog** is an extra class that extends **FloatingTips** to let you create dialog boxes that appears near target element (for example, on an important link for asking for confirmation).
 
 To learn more on how to use it, see **[HowTo](https://github.com/lorenzos/FloatingTips/wiki/Howto)** and **[Docs](https://github.com/lorenzos/FloatingTips/wiki/Docs)** wiki pages on Github.

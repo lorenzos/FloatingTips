@@ -34,6 +34,7 @@ var FloatingTips = new Class({
 		motionOnHide: true,
 		showOn: 'mouseenter',
 		hideOn: 'mouseleave',
+		discrete: false,
 		showDelay: 0,
 		hideDelay: 0,
 		className: 'floating-tip',
@@ -41,10 +42,19 @@ var FloatingTips = new Class({
 		fx: { 'duration': 'short' }
 	},
 
+	/**
+	 * Array containing the elements which have a Tip applied by this instance
+	 */
+	networkMembers: [],
+
 	initialize: function(elements, options) {
 		this.setOptions(options);
 		var s = this;
-		this.boundShow = (function() { s.show(this); });
+		this.boundShow = (function() {
+			var element = this;
+			s.show(element);
+			options.discrete && s.networkMembers.filter(function(item){return item !== element}).invoke('floatingTipsHide');
+		});
 		this.boundHide = (function() { s.hide(this); });
 		if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
 		if (elements) this.attach(elements);
@@ -54,6 +64,7 @@ var FloatingTips = new Class({
 	attach: function(elements) {
 		var s = this;
 		$$(elements).each(function(e) {
+			s.networkMembers.include(e);
 			if (e.retrieve('floatingtip_hasevents')) { return; }
 			evs = { };
 			evs[s.options.showOn] = s.boundShow;
@@ -71,6 +82,7 @@ var FloatingTips = new Class({
 		evs[this.options.showOn] = this.boundShow;
 		evs[this.options.hideOn] = this.boundHide;
 		$$(elements).each(function(e) {
+			s.networkMembers.erase(e);
 			s.hide(e);
 			e.removeEvents(evs);
 			e.eliminate('floatingtip_hasevents');
@@ -106,7 +118,6 @@ var FloatingTips = new Class({
 	},
 
 	_create: function(elem) {
-
 		var o = this.options;
 		var oc = o.content;
 		var opos = o.position;
