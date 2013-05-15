@@ -82,6 +82,7 @@ Docs
 - **motionOnHide**: If the tip will animate when hiding (default `TRUE`).
 - **showOn**: When to show the tip, can be any event of the target element (default `"mouseenter"`).
 - **hideOn**: When to hide the tip, can be any event of the target element (default `"mouseleave"`).
+- **hideOnTipOutsideClick**: Will hide the tip if the mouse is clicked somewhere outside the tip itself or the triggering element (default `FALSE`). Especially useful for dialog-like tips which stay on the page until manual action.
 - **discrete**: Whether to show only one tip of the same group at the same time (default `FALSE`). The "same group" is considered the elements which have been passed to the `FloatingTips` instance in the constructor or being `attach()`ed later on.
 - **showDelay**: The delay the show event is fired (default `0`).
 - **hideDelay**: The delay the hide event is fired (default `0`).
