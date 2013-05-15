@@ -34,6 +34,7 @@ var FloatingTips = new Class({
 		motionOnHide: true,
 		showOn: 'mouseenter',
 		hideOn: 'mouseleave',
+		hideOnTipOutsideClick: false,
 		discrete: false,
 		showDelay: 0,
 		hideDelay: 0,
@@ -208,8 +209,20 @@ var FloatingTips = new Class({
 		tip.set('morph', o.fx).store('position', pos);
 		tip.setStyles({ 'top': pos.y, 'left': pos.x });
 
-		return tip;
+		if (o.hideOnTipOutsideClick) {
+			var documentClickHandler = function(event) {
+				var eventTarget = document.id(event.target);
+				if (elem && elem !== eventTarget && !elem.contains(eventTarget)) {
+					this.hide(elem);
+				} else if (!elem) {
+					document.removeEvent('click', documentClickHandler);
+				}
+			}.bind(this);
+			document.addEvent('click', documentClickHandler);
+			tip.addEvent('click', function(event) { event.stopPropagation(); });
+		}
 
+		return tip;
 	},
 
 	_animate: function(tip, d) {
