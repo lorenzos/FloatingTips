@@ -54,7 +54,9 @@ var FloatingTips = new Class({
 		this.boundShow = (function() {
 			var element = this;
 			s.show(element);
-			options.discrete && s.networkMembers.filter(function(item){return item !== element}).invoke('floatingTipsHide');
+			if (options.discrete) s.networkMembers.filter(function(item) {
+				return item !== element;
+			}).invoke('floatingTipsHide');
 		});
 		this.boundHide = (function() { s.hide(this); });
 		if (!['top', 'right', 'bottom', 'left', 'inside'].contains(this.options.position)) this.options.position = 'top';
