@@ -54,7 +54,7 @@ var FloatingTips = new Class({
 		this.boundShow = (function() {
 			var element = this;
 			s.show(element);
-			if (options.discrete) s.networkMembers.filter(function(item) {
+			if (this.options.discrete) s.networkMembers.filter(function(item) {
 				return item !== element;
 			}).invoke('floatingTipsHide');
 		});
