@@ -67,9 +67,9 @@ var FloatingTips = new Class({
 		$$(elements).each(function(e) {
 			s.networkMembers.include(e);
 			if (e.retrieve('floatingtip_hasevents')) { return; }
-			evs = { };
-			evs[s.options.showOn] = s.boundShow;
-			evs[s.options.hideOn] = s.boundHide;
+			var evs = { };
+			s.options.showOn && (evs[s.options.showOn] = s.boundShow);
+			s.options.hideOn && (evs[s.options.hideOn] = s.boundHide);
 			e.addEvents(evs);
 			e.store('floatingtip_hasevents', true);
 			e.store('floatingtip_object', s);
