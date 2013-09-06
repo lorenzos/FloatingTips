@@ -39,6 +39,7 @@ var FloatingTips = new Class({
 		showDelay: 0,
 		hideDelay: 0,
 		className: 'floating-tip',
+		identifier: '',
 		offset: { x: 0, y: 0 },
 		fx: { 'duration': 'short' }
 	},
@@ -138,6 +139,9 @@ var FloatingTips = new Class({
 			.addClass('position-' + this.options.position)
 			.setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') })
 			.adopt(cwr);
+		if (o.identifier.length > 0) {
+			tip.addClass(o.identifier);
+		}
 
 		if (cnt) {
 			if (o.html) {

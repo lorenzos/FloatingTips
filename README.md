@@ -87,6 +87,7 @@ Docs
 - **showDelay**: The delay the show event is fired (default `0`).
 - **hideDelay**: The delay the hide event is fired (default `0`).
 - **className**: The class name the tip container will get; necessary for styling (default `"floating-tip"`).
+- **identifier**: An identifier for the tip instance, will be added as class name to the outermost tooltip element.
 - **offset**: An object like `{x: 0, y: 0}` (default), that specify the distance of the tip from its normal position.
 - **fx**: An object for additional `Fx` options (default `{'duration': 'short'}`).
 
