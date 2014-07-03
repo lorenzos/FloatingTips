@@ -216,7 +216,8 @@ var FloatingTips = new Class({
 		tip.setStyles({ 'top': pos.y, 'left': pos.x });
 
 		if (o.hideOnTipOutsideClick) {
-			var documentClickHandler = function(event) {
+			var documentClickHandler = null;
+			documentClickHandler = function(event) {
 				var eventTarget = document.id(event.target);
 				if (elem && elem !== eventTarget && !elem.contains(eventTarget)) {
 					this.hide(elem);
