@@ -181,6 +181,12 @@ var FloatingTips = new Class({
 					trgSt['margin-top'] = o.center ?  tip.getSize().y / 2 - o.arrowSize : o.arrowOffset; break;
 			}
 
+			// Firefox triangle pixelation fix (https://brettstrikesback.com/de-pixelating-the-css-triangle/)
+			if (Browser.firefox || Browser.name == 'firefox') {
+				trgSt['-moz-transform'] = 'scale(1.01)';
+				trgSt['transform'] = 'scale(1.01)';
+			}
+
 			trg.setStyles(trgSt).inject(tip, (opos == 'top' || opos == 'inside') ? 'bottom' : 'top');
 
 		}
