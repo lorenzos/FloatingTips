@@ -137,7 +137,7 @@ var FloatingTips = new Class({
 		var tip = new Element('div')
 			.addClass(o.className + '-wrapper')
 			.addClass('position-' + this.options.position)
-			.setStyles({ 'margin': 0, 'padding': 0, 'z-index': cwr.getStyle('z-index') })
+			.setStyles({ 'margin': 0, 'padding': 0 })
 			.adopt(cwr);
 		if (o.identifier.length > 0) {
 			tip.addClass(o.identifier);
@@ -156,6 +156,11 @@ var FloatingTips = new Class({
 
 		var body = document.id(document.body);
 		tip.setStyles({ 'position': (o.fixed ? 'fixed' : 'absolute'), 'opacity': 0, 'top': 0, 'left': 0 }).inject(body);
+		
+		// Z-index "copied" after tip injecting, because of webkit bug: https://bugs.webkit.org/show_bug.cgi?id=15562
+		cwr.setStyle('position', 'relative'); // Position
+		tip.setStyles({ 'z-index': cwr.getStyle('z-index') });
+		cwr.setStyle('position', null); // Reset position
 
 		if (o.balloon && !Browser.ie6) {
 
