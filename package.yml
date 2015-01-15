@@ -4,7 +4,7 @@ category: Interface
 tags: [tip, tooltip, balloon, tips]
 demo: http://jsfiddle.net/SLvUz/483/
 docs: http://wiki.github.com/lorenzos/FloatingTips/docs
-current: 2.9
+current: 2.10
 sources:
   - "Source/FloatingTips.js"
   - "Source/FloatingTips.Dialog.js"
