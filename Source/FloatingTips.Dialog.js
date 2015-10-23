@@ -56,14 +56,17 @@ FloatingTips.Dialog = new Class({
 		// Call FloatingTips constructor
 		this.parent([this.element]);
 
+		return this;
 	},
 
 	popup: function() {
 		this.show(this.element);
+		return this;
 	},
 
 	dismiss: function() {
 		this.hide(this.element);
+		return this;
 	}
 
 });
