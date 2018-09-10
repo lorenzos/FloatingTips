@@ -149,6 +149,7 @@ var FloatingTips = new Class({
 				else cwr.set('html', typeof(cnt) == 'string' ? cnt : cnt.get('html'));
 			} else {
 				cwr.set('text', cnt);
+				cwr.set('html', cwr.get('html').replace(/\n/g, '<br>'));
 			}
 		} else {
 			return null;
