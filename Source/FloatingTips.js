@@ -41,7 +41,8 @@ var FloatingTips = new Class({
 		className: 'floating-tip',
 		identifier: '',
 		offset: { x: 0, y: 0 },
-		fx: { 'duration': 'short' }
+		fx: { 'duration': 'short' },
+		autoHide: 0
 	},
 
 	/**
@@ -104,6 +105,8 @@ var FloatingTips = new Class({
 		this._animate(tip, 'in');
 		element.store('floatingtip_visible', true);
 		this.fireEvent('show', [tip, element]);
+		if (this.options.autoHide > 0)
+			this.hide.delay(this.options.autoHide,this,element);
 		return this;
 	},
 
